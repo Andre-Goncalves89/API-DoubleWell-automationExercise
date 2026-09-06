@@ -1,0 +1,832 @@
+{
+  "info": {
+    "_postman_id": "fa8e0636-56db-44e5-b60a-58ac6b511fa7",
+    "name": "Automation Exercise API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38437265",
+    "_collection_link": "https://go.postman.co/collection/38437265-fa8e0636-56db-44e5-b60a-58ac6b511fa7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "API01: GET - All products List",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "const schemaProduts = {\r",
+              "    \"type\" : \"object\",\r",
+              "    \"required\" : [\"responseCode\", \"products\"],\r",
+              "    \"properties\" : {\r",
+              "        \"responseCode\" : {\"type\" : \"number\"},\r",
+              "        \"products\":{\r",
+              "            \"type\": \"array\",\r",
+              "            \"items\": {\r",
+              "                \"type\": \"object\",\r",
+              "                \"required\": [\"id\", \"name\", \"price\", \"brand\", \"category\"],\r",
+              "                \"properties\": {\r",
+              "                    \"id\": {\"type\": \"number\"},\r",
+              "                    \"name\": {\"type\": \"string\"},\r",
+              "                    \"price\": {\"type\": \"string\"},\r",
+              "                    \"brand\": {\"type\": \"string\"},\r",
+              "                    \"category\": {\r",
+              "                        \"type\": \"object\",\r",
+              "                        \"required\": [\"usertype\"],\r",
+              "                        \"properties\": {\r",
+              "                            \"usertype\": {\r",
+              "                                \"type\": \"object\",\r",
+              "                                \"required\": [\"usertype\"],\r",
+              "                                \"properties\": {\r",
+              "                                    \"usertype\": {\"type\": \"string\"}\r",
+              "                                }\r",
+              "                            }\r",
+              "                        }\r",
+              "                    }\r",
+              "                } \r",
+              "            }\r",
+              "        }\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Validação de Contrato - Schema dos Produtos\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    const validacao = tv4.validateResult(resposta, schemaProduts)\r",
+              "\r",
+              "    if(!validacao.valid) {\r",
+              "        console.log(\"Erro de schema\", validacao.error)\r",
+              "    }\r",
+              "\r",
+              "    pm.expect(validacao.valid).to.be.true;\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}productsList",
+          "host": [
+            "{{baseUrl}}productsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API05: POST - Search Product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "const schemaSearchProduct = {\r",
+              "    \"type\": \"object\",\r",
+              "    \"required\": [\"responseCode\", \"products\"],\r",
+              "    \"properties\": {\r",
+              "        \"responseCode\": {\"type\": \"number\"},\r",
+              "        \"products\": {\r",
+              "            \"type\": \"array\",\r",
+              "            \"items\": {\r",
+              "                \"type\": \"object\",\r",
+              "                \"required\": [\"id\", \"name\", \"price\", \"brand\", \"category\" ],\r",
+              "                \"properties\": {\r",
+              "                    \"id\": {\"type\": \"number\"},\r",
+              "                    \"name\": {\"type\": \"string\"},\r",
+              "                    \"price\": {\"type\": \"string\"},\r",
+              "                    \"btand\": {\"type\": \"string\"},\r",
+              "                    \"category\": {\r",
+              "                        \"type\": \"object\",\r",
+              "                        \"required\": [\"usertype\"],\r",
+              "                        \"properties\": {\r",
+              "                            \"usertype\": {\r",
+              "                                \"type\": \"object\",\r",
+              "                                \"required\": [\"usertype\"],\r",
+              "                                \"properties\": {\r",
+              "                                    \"usertype\" : {\"type\": \"string\"}\r",
+              "                                }\r",
+              "                            }\r",
+              "                        }\r",
+              "                    }\r",
+              "                }\r",
+              "            }\r",
+              "        }\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Validação de contrato - Schema de busca de produtos \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    const validacao = tv4.validateResult(resposta, schemaSearchProduct)\r",
+              "\r",
+              "    if(!validacao.valid){\r",
+              "        console.log(\"erro de Schema na busca\", valid.error)\r",
+              "    }\r",
+              "\r",
+              "    pm.expect(validacao.valid).to.be.true;\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "search_product",
+              "value": "top",
+              "type": "text",
+              "uuid": "faa5e94e-c74f-4584-8f6e-b990c4055b81"
+            },
+            {
+              "key": "",
+              "value": "",
+              "type": "text",
+              "uuid": "fa0e0c50-52c5-4c52-bc4d-46046bf62249",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}searchProduct",
+          "host": [
+            "{{baseUrl}}searchProduct"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API11: POST - Create/Register user Account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"responseCode to be number and contains = '201' appears\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.to.equal(201);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Message 'user created!' appears\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.to.equal(\"User created!\");\r",
+              "})\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const timeStamp = Date.now();\r",
+              "const emailDinamico = `andre_qa${timeStamp}@qa.com`\r",
+              "\r",
+              "pm.collectionVariables.set(\"emailDinamico\", emailDinamico)"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Andre",
+              "type": "text",
+              "uuid": "3ee4d991-e3ed-48dd-823f-0d3fe1910e57"
+            },
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}",
+              "type": "text",
+              "uuid": "878b7d3a-2fc2-40d0-a77c-b7a83956ac5e"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "7b925c22-e5a6-4795-967f-6575edf6eb7e"
+            },
+            {
+              "key": "title ",
+              "value": "Mr",
+              "type": "text",
+              "uuid": "3d0c2f09-4eb5-4b34-a9ad-7948cd42c7a8"
+            },
+            {
+              "key": "birth_date",
+              "value": "20",
+              "type": "text",
+              "uuid": "a8828267-6e39-462e-8313-02cb49f50c67"
+            },
+            {
+              "key": "birth_month",
+              "value": "November",
+              "type": "text",
+              "uuid": "6621beaf-feec-4302-84fa-aab2c527d8c0"
+            },
+            {
+              "key": "birth_year",
+              "value": "1989",
+              "type": "text",
+              "uuid": "2428e964-f280-4d9c-b434-b923033700f8"
+            },
+            {
+              "key": "firstname",
+              "value": "Andre",
+              "type": "text",
+              "uuid": "5e614663-20af-42d7-b0b6-6f0cd6dee81b"
+            },
+            {
+              "key": "lastname",
+              "value": "QA",
+              "type": "text",
+              "uuid": "47dba615-f7aa-4fc9-8852-ea7d8b071ba9"
+            },
+            {
+              "key": "company",
+              "value": "DoubleWell",
+              "type": "text",
+              "uuid": "3118904f-52d6-4241-b3d4-b1525f297a07"
+            },
+            {
+              "key": "address1",
+              "value": "rua 123",
+              "type": "text",
+              "uuid": "08a1c803-8c66-4303-abaa-a67f8572c85f"
+            },
+            {
+              "key": "address2",
+              "value": "bloco A",
+              "type": "text",
+              "uuid": "61464fc4-255a-40fc-9d58-956d0ae3d9af"
+            },
+            {
+              "key": "country",
+              "value": "Canada",
+              "type": "text",
+              "uuid": "847cb3c0-60a3-4d42-9cb5-a2801fcba9a4"
+            },
+            {
+              "key": "zipcode",
+              "value": "00254000",
+              "type": "text",
+              "uuid": "9aeb510b-df10-4770-bcfa-76e966cfcca2"
+            },
+            {
+              "key": "state",
+              "value": "Montreal",
+              "type": "text",
+              "uuid": "6d461895-4df8-473a-b29e-43b514d3e541"
+            },
+            {
+              "key": "city",
+              "value": "Montreal",
+              "type": "text",
+              "uuid": "f0a223e4-39a5-4be9-a8e2-fdb15920fc8c"
+            },
+            {
+              "key": "mobile_number",
+              "value": "5511987455498",
+              "type": "text",
+              "uuid": "075c12d8-cc9f-4563-9749-11c55029a6ca"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}createAccount",
+          "host": [
+            "{{baseUrl}}createAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API: POST - Create/Register user Account ALREADY exist",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"responseCode to be number and contains = '400' appears\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.to.equal(400);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Message 'Email already exist!' appears\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.to.equal(\"Email already exists!\");\r",
+              "})\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Andre",
+              "type": "text",
+              "uuid": "3ee4d991-e3ed-48dd-823f-0d3fe1910e57"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "7b925c22-e5a6-4795-967f-6575edf6eb7e"
+            },
+            {
+              "key": "title ",
+              "value": "Mr",
+              "type": "text",
+              "uuid": "3d0c2f09-4eb5-4b34-a9ad-7948cd42c7a8"
+            },
+            {
+              "key": "birth_date",
+              "value": "20",
+              "type": "text",
+              "uuid": "a8828267-6e39-462e-8313-02cb49f50c67"
+            },
+            {
+              "key": "birth_month",
+              "value": "November",
+              "type": "text",
+              "uuid": "6621beaf-feec-4302-84fa-aab2c527d8c0"
+            },
+            {
+              "key": "birth_year",
+              "value": "1989",
+              "type": "text",
+              "uuid": "2428e964-f280-4d9c-b434-b923033700f8"
+            },
+            {
+              "key": "firstname",
+              "value": "Andre",
+              "type": "text",
+              "uuid": "5e614663-20af-42d7-b0b6-6f0cd6dee81b"
+            },
+            {
+              "key": "lastname",
+              "value": "QA",
+              "type": "text",
+              "uuid": "47dba615-f7aa-4fc9-8852-ea7d8b071ba9"
+            },
+            {
+              "key": "company",
+              "value": "DoubleWell",
+              "type": "text",
+              "uuid": "3118904f-52d6-4241-b3d4-b1525f297a07"
+            },
+            {
+              "key": "address1",
+              "value": "rua 123",
+              "type": "text",
+              "uuid": "08a1c803-8c66-4303-abaa-a67f8572c85f"
+            },
+            {
+              "key": "address2",
+              "value": "bloco A",
+              "type": "text",
+              "uuid": "61464fc4-255a-40fc-9d58-956d0ae3d9af"
+            },
+            {
+              "key": "country",
+              "value": "Canada",
+              "type": "text",
+              "uuid": "847cb3c0-60a3-4d42-9cb5-a2801fcba9a4"
+            },
+            {
+              "key": "zipcode",
+              "value": "00254000",
+              "type": "text",
+              "uuid": "9aeb510b-df10-4770-bcfa-76e966cfcca2"
+            },
+            {
+              "key": "state",
+              "value": "Montreal",
+              "type": "text",
+              "uuid": "6d461895-4df8-473a-b29e-43b514d3e541"
+            },
+            {
+              "key": "city",
+              "value": "Montreal",
+              "type": "text",
+              "uuid": "f0a223e4-39a5-4be9-a8e2-fdb15920fc8c"
+            },
+            {
+              "key": "mobile_number",
+              "value": "5511987455498",
+              "type": "text",
+              "uuid": "075c12d8-cc9f-4563-9749-11c55029a6ca"
+            },
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}",
+              "type": "text",
+              "uuid": "4a447084-61e6-40f2-be6b-74eb82f5cc51"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}createAccount",
+          "host": [
+            "{{baseUrl}}createAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API07: POST - Verify login with valid email and password",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify responseCode to be a number and contains value = '200' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.equals(200)\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Verify message to be a string and contains value = 'User exists!' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.equals('User exists!')\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}",
+              "type": "text",
+              "uuid": "6eef32ab-5d1b-40d5-8a3c-2b5cf5fbfb7e"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "a6bd7d15-33b5-4562-9b84-b646f4f17a99"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}verifyLogin",
+          "host": [
+            "{{baseUrl}}verifyLogin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API13: PUT - Update account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify if responseCode to be a number and contains value = '200' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.equals(200)\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify if message to be a string and contains value = 'User updated!' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.equals('User updated!')\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}",
+              "type": "text",
+              "uuid": "1985181a-8abd-4634-971c-2a540df85312"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "328f9744-6dc4-42ae-8f1f-7c40c3706724"
+            },
+            {
+              "key": "name",
+              "value": "new Andre QA",
+              "type": "text",
+              "uuid": "59130b32-14c2-4bd1-a503-277ad9f2dc03"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}updateAccount",
+          "host": [
+            "{{baseUrl}}updateAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API: PUT - Try Update account with invalid email/password",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify if responseCode to be a number and contains value = '404' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.equals(404)\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify if message to be a string and contains value = 'Account not found!' \", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.equals('Account not found!')\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "error_email@qa.com",
+              "type": "text",
+              "uuid": "1985181a-8abd-4634-971c-2a540df85312"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "328f9744-6dc4-42ae-8f1f-7c40c3706724"
+            },
+            {
+              "key": "name",
+              "value": "new Andre QA",
+              "type": "text",
+              "uuid": "59130b32-14c2-4bd1-a503-277ad9f2dc03"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}updateAccount",
+          "host": [
+            "{{baseUrl}}updateAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API14: GET - User detail by email param",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const schemaUserDetail = {\r",
+              "    \"type\": \"object\",\r",
+              "    \"required\": [\"responseCode\", \"user\"],\r",
+              "    \"properties\": {\r",
+              "        \"responseCode\": {\"type\": \"number\"},\r",
+              "        \"user\": {\r",
+              "            \"type\": \"object\",\r",
+              "            \"required\": [\"id\", \"name\", \"email\", \"title\",\r",
+              "            \"birth_day\", \"birth_month\", \"birth_year\", \"first_name\", \r",
+              "            \"last_name\", \"company\",\"address1\", \"address2\", \"country\", \r",
+              "            \"state\", \"city\", \"zipcode\"],\r",
+              "            \"properties\": {\r",
+              "                \"id\": {\"type\": \"number\"},\r",
+              "                \"name\": {\"type\": \"string\"},\r",
+              "                \"email\": {\"type\": \"string\"},\r",
+              "                \"title\": {\"type\": \"string\"},\r",
+              "                \"birth_day\": {\"type\": \"string\"},\r",
+              "                \"birth_month\": {\"type\": \"string\"},\r",
+              "                \"birth_year\": {\"type\": \"string\"},\r",
+              "                \"first_name\": {\"type\": \"string\"},\r",
+              "                \"last_name\": {\"type\": \"string\"},\r",
+              "                \"company\": {\"type\": \"string\"},\r",
+              "                \"address1\": {\"type\": \"string\"},\r",
+              "                \"address2\": {\"type\": \"string\"},\r",
+              "                \"country\": {\"type\": \"string\"},\r",
+              "                \"state\": {\"type\": \"string\"},\r",
+              "                \"city\": {\"type\": \"string\"},\r",
+              "                \"zipcode\": {\"type\": \"string\"}\r",
+              "            }\r",
+              "        }\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Contract validation user detail\", function () {\r",
+              "    const jsonResposta = pm.response.json();\r",
+              "    const validacao = tv4.validate(jsonResposta, schemaUserDetail)\r",
+              "\r",
+              "    if(!validacao) {\r",
+              "        console.log(\"Erro de schema\", tv4.error);\r",
+              "    }\r",
+              "\r",
+              "    pm.expect(validacao).to.be.true\r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}getUserDetailByEmail?email={{emailDinamico}}",
+          "host": [
+            "{{baseUrl}}getUserDetailByEmail"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API12: DELETE - Delete an exist account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify responseCode to be a number and contains value = '200'\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.responseCode).to.be.a('number').and.equals(200);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Verify message to be a string and contains value = 'Account deleted!'\", function () {\r",
+              "    const resposta = pm.response.json();\r",
+              "    pm.expect(resposta.message).to.be.a('string').and.equals('Account deleted!');\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "{{emailDinamico}}",
+              "type": "text",
+              "uuid": "84056dc2-0b86-40bb-acdd-5a67aa4e49d8"
+            },
+            {
+              "key": "password",
+              "value": "test123",
+              "type": "text",
+              "uuid": "825e21b3-af08-44ef-98b2-ecf3e58443b4"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}deleteAccount",
+          "host": [
+            "{{baseUrl}}deleteAccount"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": null,
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "emailDinamico",
+      "value": ""
+    }
+  ]
+}
