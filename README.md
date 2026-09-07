@@ -30,12 +30,13 @@
 ### Pré-requisitos
 Certifique-se de ter o Node.js e o Newman instalados em sua máquina:
 ```bash
-npm install -g newman
+git clone https://github.com/Andre-Goncalves89/API-DoubleWell-automationExercise.git
 ```
 ---
 ```bash
-git clone https://github.com/Andre-Goncalves89/API-DoubleWell-automationExercise.git
+npm install -g newman
 ```
+---
 
 ## Executando os testes via Newman (CLI)
 Na raiz do repositório, execute o comando abaixo para rodar a collection utilizando o arquivo de ambiente de desenvolvimento:
