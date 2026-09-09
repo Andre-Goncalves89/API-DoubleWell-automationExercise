@@ -1,6 +1,6 @@
 # 🧪 Automation Exercise - API Testing Suite
 
-> Suite automatizada de testes de API desenvolvida com foco em qualidade de software, abrangendo validação de contratos, cenários negativos e ciclo completo de CRUD.
+> Suite automatizada de testes de API desenvolvida com foco em qualidade de software, abrangendo validação de contratos, cenários negativos e ciclo completo de CRUD!
 
 ---
 
