@@ -1,27 +1,27 @@
 name: API Automation-exercise(Newman)
 
 on:
-    push:
-        branches: [main, master]
-    pull_request: 
-        branches: [main, master]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 jobs:
-    test:
-        runs-on: Ubuntu-latest
+  test:
+    runs-on: Ubuntu-latest
 
-        steps:
-            - name: Clonar o repositório
-              uses: actions/checkout@v4
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
 
-            - name: Configurar o Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: '20'
+      - name: Configurar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-            - name: Instalar o Newman
-              run: npm install -g newman
+      - name: Instalar o newman
+        run: npm install -g newman
 
-            - name: Executar os testes de API via newman
-              run: |
-                newman run "collections/Automation Exercise API.postman_collection.json" -e "environment/AutomationExercise - dev API.postman_environment.json"
+      - name: Executar os testes de API via newman
+        run: |
+          newman run "collections/Automation Exercise API.postman_collection.json" -e "environment/AutomationExercise - dev API.postman_environment.json"
